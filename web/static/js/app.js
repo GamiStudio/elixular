@@ -1,21 +1,28 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+require.config({
+    baseUrl: 'js',
+    paths: {
+        modules: 'modules',
+        jquery: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min',
+        underscore: 'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min'
+    },
+    map: {
+        '*': { 'jquery': 'jquery-private' },
+        'jquery-private': { 'jquery': 'jquery' }
+    }
+});
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "deps/phoenix_html/web/static/js/phoenix_html"
+define('jquery-private', ['jquery'], function(jq) {
+    return jq.noConflict(true);
+});
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+require(['modules/input-element'], function(InputElement) {
+    console.log(InputElement);
 
-// import socket from "./socket"
+    var regexInput = new InputElement({
+        el: '#regex-input',
+        resize: true
+    });
+    var regexFlags = new InputElement({
+        el: '#regex-flags'
+    });
+});
