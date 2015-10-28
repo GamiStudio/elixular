@@ -3,13 +3,17 @@ import InputElement from "./input-element";
 
 var elixular = new Elixular();
 
-function showResult(result) {
+function showResults(result) {
+  console.log(result);
+}
+function showErrors(result) {
   console.log(result);
 }
 
 function reevaluate(expression) {
   elixular.test(expression)
-    .then(showResult);
+    .then(showResults)
+    .catch(showErrors)
 }
 
 var regexInput = new InputElement({

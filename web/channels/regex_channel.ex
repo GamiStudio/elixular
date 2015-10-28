@@ -9,19 +9,19 @@ defmodule Elixular.RegexChannel do
 
   def handle_in("start", %{"pattern" => pattern}, socket) do
     Logger.debug pattern
-    test_and_respond Regex.compile(pattern), socket
-    {:noreply, socket}
+    Regex.compile(pattern) |> test_and_respond socket
   end
 
   def test_and_respond({:ok, regex}, socket) do
-    result = Regex.run(regex, "lukas")
-    push socket, "complete", %{result: result}
+    results = Regex.run(regex, "lukas")
+    {:reply, {:ok, %{matches: results}}, socket}
   end
 
   def test_and_respond({:error, error}, socket) do
-    push socket, "error", %{
-      msg: elem(error, 0),
-      index: elem(error, 1)
-    }
+    {:reply,
+      {:error, %{
+          msg: elem(error, 0),
+          index: elem(error, 1)
+        }}, socket}
   end
 end
