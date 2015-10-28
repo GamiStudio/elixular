@@ -37,14 +37,12 @@ h1 {
 }
 
 
-.text {
-    &--fixed {
-        font-family: 'Inconsolata';
-    }
+.text--fixed {
+    font-family: 'Inconsolata';
+}
 
-    &--large {
-        font-size: 20px;
-    }
+.text--large {
+    font-size: 20px;
 }
 
 .regex {
@@ -53,16 +51,16 @@ h1 {
     margin-bottom: 20px;
 
     > div {
-        align-self: top;
+      align-self: top;
     }
+}
 
-    &__slash {
-        padding: 5px 10px;
-    }
+.regex__slash {
+    padding: 5px 10px;
+}
 
-    &__input {
-        flex: 1 0 auto;
-    }
+.regex__input {
+    flex: 1 0 auto;
 }
 
 input.input, textarea.input {
