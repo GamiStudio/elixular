@@ -23,7 +23,8 @@ function InputElement(options) {
     }
 
     if (_this.$el.val()) {
-      _this.send.call(_this);
+      // please use generators!!!
+      _this.onChange(_this.$el.val());
     }
   };
 
@@ -36,17 +37,6 @@ function InputElement(options) {
 };
 
 _.extend(InputElement.prototype, {
-  send: function() {
-    var _this = this;
-
-    // if (!_this.el.value.length) return console.log('No value');
-
-    // send value
-
-    // console.log(_this.el.value.length);
-
-    // get response
-  },
   triggerResize: function() {
     var element = this.el;
     var empty = false;

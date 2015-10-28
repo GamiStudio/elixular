@@ -7,15 +7,18 @@ function showResult(result) {
   console.log(result);
 }
 
-// $("#regex-input").change(function() {
-//   elixular.test(expression)
-//     .then(showResult);
-// })
+function reevaluate(expression) {
+  elixular.test(expression)
+    .then(showResult);
+}
 
 var regexInput = new InputElement({
   el: '#regex-input',
-  resize: true
+  resize: true,
+  // we should probably use generators
+  onChange: reevaluate
 });
 var regexFlags = new InputElement({
-  el: '#regex-flags'
+  el: '#regex-flags',
+  onChange: reevaluate
 });

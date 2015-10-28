@@ -9,11 +9,18 @@ class Elixular {
     this._channel.join()
       .receive("ok", resp => { console.log("Joined succesffuly", resp) })
       .receive("error", resp => { console.log("Unabled to join", resp) });
+
+    this._channel.on("complete", result => {
+      console.log("complete", result);
+    });
+    this._channel.on("error", result => {
+      console.log("error", result);
+    });
   }
 
-  test(regex) {
-    return new Promise(function(resolve, reject) {
-      this._channel.push("test", { regex: regex });
+  test(pattern) {
+    return new Promise((resolve, reject) => {
+      this._channel.push("start", { pattern: pattern });
       resolve("testing...");
     });
   }
