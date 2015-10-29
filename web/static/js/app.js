@@ -11,7 +11,7 @@ function showErrors(result) {
 }
 
 function reevaluate(expression) {
-  elixular.test(expression)
+  elixular.test(expression, $("#regex-test").val())
     .then(showResults)
     .catch(showErrors)
 }

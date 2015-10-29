@@ -7,17 +7,16 @@ defmodule Elixular.RegexChannel do
     {:ok, socket}
   end
 
-  def handle_in("start", %{"pattern" => pattern}, socket) do
-    Logger.debug pattern
-    Regex.compile(pattern) |> test_and_respond socket
+  def handle_in("start", payload, socket) do
+    Regex.compile(payload["pattern"]) |> test_and_respond payload["text"], socket
   end
 
-  def test_and_respond({:ok, regex}, socket) do
-    results = Regex.run(regex, "lukas")
+  def test_and_respond({:ok, regex}, text, socket) do
+    results = Regex.scan(regex, text)
     {:reply, {:ok, %{matches: results}}, socket}
   end
 
-  def test_and_respond({:error, error}, socket) do
+  def test_and_respond({:error, error}, _text, socket) do
     {:reply,
       {:error, %{
           msg: elem(error, 0),
