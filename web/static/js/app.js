@@ -1,4 +1,4 @@
-import Elixular from "./elixular"
+import Elixular from "./elixular";
 import InputElement from "./input-element";
 
 var elixular = new Elixular();
@@ -13,7 +13,7 @@ function showErrors(result) {
 function reevaluate(expression) {
   elixular.test(expression, $("#regex-test").val())
     .then(showResults)
-    .catch(showErrors)
+    .catch(showErrors);
 }
 
 var regexInput = new InputElement({
