@@ -1,5 +1,25 @@
 // TODO: use array to track changes
 
+function checkKeyModifiers(e, ...modifiers) {
+  // altKey
+  // ctrlKey
+  // metaKey
+  // shiftKey
+
+  if (modifiers.length === 0) {
+    return !(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
+  }
+
+  var mappedMods = modifiers.map(function(mod) {
+    return e[mod] || e[mod + 'Key'];
+  });
+
+  return _.every(mappedMods, function(item) {
+    return item;
+  });
+}
+
+
 function InputElement(options) {
   options || (options = {});
 
@@ -34,7 +54,7 @@ function InputElement(options) {
   });
 
   _this.initialize && _this.initialize();
-};
+}
 
 _.extend(InputElement.prototype, {
   triggerResize: function() {
@@ -74,7 +94,7 @@ _.extend(InputElement.prototype, {
     };
 
     var setCaretPosition = function(target, caretPosStart, caretPosEnd) {
-      if(target != null) {
+      if(target !== null) {
         if(target.createTextRange) {
           var range = target.createTextRange();
           range.move('character', caretPosStart);
@@ -106,16 +126,17 @@ _.extend(InputElement.prototype, {
   },
 
   keyDownEvent: function(e) {
-    if (e.keyCode === 57) {
+    if (e.keyCode === 57 && checkKeyModifiers(e, 'shift')) {
       e.preventDefault();
       this.wrapBlock('(', ')');
     }
 
-    if (e.keyCode === 219) {
+    if (e.keyCode === 219 && checkKeyModifiers(e)) {
       e.preventDefault();
+      console.log(e);
       this.wrapBlock('[', ']');
     }
   }
-})
+});
 
 export default InputElement;
