@@ -1,3 +1,4 @@
+# Finder files
 .DS_Store
 
 # App artifacts
@@ -20,6 +21,11 @@ erl_crash.dump
 /web/static/css/.sass-cache
 /web/static/css/*.css
 /web/static/css/*.css.map
+
+.sass-cache
+
+# Ignore editor config files
+.jshintrc
 
 # The config/prod.secret.exs file by default contains sensitive
 # data and you should not commit it into version control.
