@@ -1,10 +1,11 @@
 import Elixular from "./elixular";
 import InputElement from "./input-element";
+import ResultsDisplay from "./result-display";
 
 var elixular = new Elixular();
 
 function showResults(result) {
-  console.log(result);
+  resultDisplay.update(regexTest.value, result.matches);
 }
 
 function showErrors(result) {
@@ -15,7 +16,7 @@ var reevaluate = _.debounce(function reevaluate(expression) {
   var testVal = regexTest.value;
   var inputVal = regexInput.value;
 
-  elixular.test(expression, regexTest.$el.val())
+  elixular.test(expression, regexTest.value)
     .then(showResults)
     .catch(showErrors);
 }, 300);
@@ -25,12 +26,18 @@ var regexInput = new InputElement({
   resize: true,
   onChange: reevaluate
 });
+
 var regexFlags = new InputElement({
   el: '#regex-flags',
   onChange: reevaluate
 });
+
 var regexTest = new InputElement({
   el: '#regex-test',
   wrapBlocks: false,
   onChange: reevaluate
+});
+
+var resultDisplay = new ResultsDisplay({
+  el: '#regex-test-wrapper pre'
 });
