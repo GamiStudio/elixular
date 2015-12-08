@@ -37,44 +37,48 @@ function setCaretPosition(target, caretPosStart, caretPosEnd) {
   }
 }
 
-function InputElement(options) {
-  options || (options = {});
+class InputElement {
+  constructor(options) {
+    options || (options = {});
 
-  var _this = this;
-  _this.wrapBlocks = true;
+    var _this = this;
+    _this.wrapBlocks = true;
 
-  _.extend(_this, options);
+    _.extend(_this, options);
 
-  var selector = _this.el;
+    var selector = _this.el;
 
-  if (!selector) return _this;
+    if (!selector) return _this;
 
-  _this.$el = $(selector);
+    _this.$el = $(selector);
 
-  if (_this.$el.length === 0) return _this;
+    if (_this.$el.length === 0) return _this;
 
-  _this.el = _this.$el.first()[0];
+    _this.el = _this.$el.first()[0];
 
-  var inputCall = function(e) {
-    if (_this.resize === true) {
-      _this._triggerResize();
-    }
+    var inputCall = function(e) {
+      if (_this.resize === true) {
+        _this._triggerResize();
+      }
 
-    if (_this.$el.val() && typeof _this.onChange == 'function') {
-      _this.onChange.call(_this, _this.$el.val());
-    }
-  };
+      if (_this.$el.val() && typeof _this.onChange == 'function') {
+        _this.onChange.call(_this, _this.$el.val());
+      }
+    };
 
-  _this.$el.on('input', inputCall).each(inputCall);
-  _this.$el.on('keydown', function(e) {
-    _this._keyDownEvent.apply(_this, arguments);
-  });
+    _this.$el.on('input', inputCall).each(inputCall);
+    _this.$el.on('keydown', function(e) {
+      _this._keyDownEvent.apply(_this, arguments);
+    });
 
-  _this.initialize && _this.initialize();
-}
+    _this.initialize && _this.initialize();
+  }
 
-_.extend(InputElement.prototype, {
-  _triggerResize: function() {
+  value() {
+    return this.$el && this.$el.val();
+  }
+
+  _triggerResize() {
     var element = this.el;
     var empty = false;
     var offset;
@@ -104,8 +108,8 @@ _.extend(InputElement.prototype, {
     if (empty) {
       element.value = "";
     }
-  },
-  _wrapBlock: function(startChar, endChar) {
+  }
+  _wrapBlock(startChar, endChar) {
     var insertAt = function(string, char, index) {
       return [string.slice(0, index), char, string.slice(index)].join('');
     };
@@ -121,9 +125,9 @@ _.extend(InputElement.prototype, {
     if (this.resize === true) {
       this._triggerResize();
     }
-  },
+  }
 
-  _keyDownEvent: function(e) {
+  _keyDownEvent(e) {
     if (this.wrapBlocks) {
       if (e.keyCode === 57 && checkKeyModifiers(e, 'shift')) {
         e.preventDefault();
@@ -136,6 +140,6 @@ _.extend(InputElement.prototype, {
       }
     }
   }
-});
+}
 
 export default InputElement;
