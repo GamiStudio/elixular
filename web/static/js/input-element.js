@@ -19,11 +19,29 @@ function checkKeyModifiers(e, ...modifiers) {
   });
 }
 
+function setCaretPosition(target, caretPosStart, caretPosEnd) {
+  if(target !== null) {
+    if(target.createTextRange) {
+      let range = target.createTextRange();
+      range.move('character', caretPosStart);
+      range.select();
+    }
+    else {
+      target.focus();
+
+      if(target.selectionStart) {
+        target.selectionStart = caretPosStart;
+        target.selectionEnd = caretPosEnd || caretPosStart;
+      }
+    }
+  }
+}
 
 function InputElement(options) {
   options || (options = {});
 
   var _this = this;
+  _this.wrapBlocks = true;
 
   _.extend(_this, options);
 
@@ -39,25 +57,24 @@ function InputElement(options) {
 
   var inputCall = function(e) {
     if (_this.resize === true) {
-      _this.triggerResize();
+      _this._triggerResize();
     }
 
-    if (_this.$el.val()) {
-      // please use generators!!!
-      _this.onChange(_this.$el.val());
+    if (_this.$el.val() && typeof _this.onChange == 'function') {
+      _this.onChange.call(_this, _this.$el.val());
     }
   };
 
   _this.$el.on('input', inputCall).each(inputCall);
   _this.$el.on('keydown', function(e) {
-    _this.keyDownEvent.apply(_this, arguments);
+    _this._keyDownEvent.apply(_this, arguments);
   });
 
   _this.initialize && _this.initialize();
 }
 
 _.extend(InputElement.prototype, {
-  triggerResize: function() {
+  _triggerResize: function() {
     var element = this.el;
     var empty = false;
     var offset;
@@ -88,28 +105,9 @@ _.extend(InputElement.prototype, {
       element.value = "";
     }
   },
-  wrapBlock: function(startChar, endChar) {
+  _wrapBlock: function(startChar, endChar) {
     var insertAt = function(string, char, index) {
       return [string.slice(0, index), char, string.slice(index)].join('');
-    };
-
-    var setCaretPosition = function(target, caretPosStart, caretPosEnd) {
-      if(target !== null) {
-        if(target.createTextRange) {
-          var range = target.createTextRange();
-          range.move('character', caretPosStart);
-          range.select();
-        }
-        else {
-          if(target.selectionStart) {
-            target.focus();
-            target.selectionStart = caretPosStart;
-            target.selectionEnd = caretPosEnd || caretPosStart;
-          }
-          else
-            target.focus();
-        }
-      }
     };
 
     var target = this.el;
@@ -121,20 +119,21 @@ _.extend(InputElement.prototype, {
     setCaretPosition(target, selectionStart + 1, selectionEnd);
 
     if (this.resize === true) {
-      this.triggerResize();
+      this._triggerResize();
     }
   },
 
-  keyDownEvent: function(e) {
-    if (e.keyCode === 57 && checkKeyModifiers(e, 'shift')) {
-      e.preventDefault();
-      this.wrapBlock('(', ')');
-    }
+  _keyDownEvent: function(e) {
+    if (this.wrapBlocks) {
+      if (e.keyCode === 57 && checkKeyModifiers(e, 'shift')) {
+        e.preventDefault();
+        this._wrapBlock('(', ')');
+      }
 
-    if (e.keyCode === 219 && checkKeyModifiers(e)) {
-      e.preventDefault();
-      console.log(e);
-      this.wrapBlock('[', ']');
+      if (e.keyCode === 219 && checkKeyModifiers(e)) {
+        e.preventDefault();
+        this._wrapBlock('[', ']');
+      }
     }
   }
 });
