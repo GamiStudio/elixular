@@ -1,74 +1,102 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata);
 
+$fixed-width: 'Inconsolata', Monaco, Consolas, 'Lucida Console', monospace;
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
-    color: #555555;
-    background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  color: #555555;
+  background-color: #ffffff;
 }
 
 body {
-    font-family: sans-serif;
-    font-size: 16px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .container {
-    max-width: 860px;
-    padding: 0 30px;
-    margin: 0 auto;
+  max-width: 860px;
+  padding: 0 30px;
+  margin: 0 auto;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
-.wrapper {
-    padding: 20px;
-    border-radius: 4px;
+pre {
+  font-family: $fixed-width;
 }
 
+.box {
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+.box--round {
+  border-radius: 4px;
+}
 
 .text--fixed {
-    font-family: 'Inconsolata';
+  font-family: $fixed-width;
+}
+
+.text--small {
+  font-size: 14px;
 }
 
 .text--large {
-    font-size: 20px;
+  font-size: 20px;
+}
+
+.text--center {
+  text-align: center;
+}
+
+.text--right {
+  text-align: right;
 }
 
 .regex {
-    display: flex;
-    width: 100%;
-    margin-bottom: 20px;
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
 
-    > div {
-      align-self: top;
-    }
+  > div {
+    align-self: top;
+  }
 }
 
 .regex__slash {
-    padding: 5px 10px;
+  padding: 5px 10px;
 }
 
 .regex__input {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 input.input, textarea.input {
-    outline: none;
-    padding: 5px 10px;
-    width: 100%;
-    border: none;
-    -webkit-appearance: none;
-    background-color: #f5f5f5;
-    resize: none;
+  outline: none;
+  padding: 5px 10px;
+  width: 100%;
+  border: none;
+  -webkit-appearance: none;
+  background-color: #f5f5f5;
+  resize: none;
 }
