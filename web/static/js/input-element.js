@@ -74,7 +74,7 @@ class InputElement {
     _this.initialize && _this.initialize();
   }
 
-  value() {
+  get value() {
     return this.$el && this.$el.val();
   }
 
