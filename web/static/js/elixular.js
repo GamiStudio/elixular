@@ -7,7 +7,7 @@ class Elixular {
     this._channel = this._socket.channel("regex:test", {});
 
     this._channel.join()
-      .receive("ok", resp => { console.log("Joined succesffuly", resp); })
+      .receive("ok", resp => { console.log("Joined succesfuly", resp); })
       .receive("error", resp => { console.log("Unabled to join", resp); });
   }
 
