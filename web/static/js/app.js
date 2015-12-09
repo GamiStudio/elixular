@@ -12,11 +12,8 @@ function showErrors(result) {
   console.log(result);
 }
 
-var reevaluate = _.debounce(function reevaluate(expression) {
-  var testVal = regexTest.value;
-  var inputVal = regexInput.value;
-
-  elixular.test(expression, regexTest.value)
+var reevaluate = _.debounce(function reevaluate() {
+  elixular.test(regexInput.value, regexTest.value)
     .then(showResults)
     .catch(showErrors);
 }, 300);

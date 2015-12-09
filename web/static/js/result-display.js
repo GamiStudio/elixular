@@ -24,7 +24,7 @@ class ResultsDisplay {
 
     matches.reverse().forEach(function(match) {
       var fromIndex = match.index;
-      var toIndex = match.index + (match.val.length - 1);
+      var toIndex = match.index + (match.value.length - 1);
       var lastRange = (colorRanges.length - 1);
 
       if (lastRange >= 0 && colorRanges[lastRange].from <= toIndex) {
@@ -32,8 +32,8 @@ class ResultsDisplay {
       }
 
       colorRanges.push({
-        from: match.index,
-        to: match.index + (match.val.length - 1)
+        from: match.range[0],
+        to: match.range[0] + match.range[1]
       });
     });
   }
