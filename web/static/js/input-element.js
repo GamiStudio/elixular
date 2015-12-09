@@ -61,8 +61,8 @@ class InputElement {
         _this._triggerResize();
       }
 
-      if (_this.$el.val() && typeof _this.onChange == 'function') {
-        _this.onChange.call(_this, _this.$el.val());
+      if (typeof _this.onChange == 'function') {
+        _this.onChange.call(_this, _this.value);
       }
     };
 
