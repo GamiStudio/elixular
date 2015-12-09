@@ -10,7 +10,7 @@
         </div>
     </div>
     <div id="regex-test-wrapper">
-        <pre></pre>
-        <textarea name="regex-test" id="regex-test" class="input text--large text--fixed" cols="30" rows="5" placeholder="Test string"></textarea>
+        <pre class="regex-results text--large"></pre>
+        <textarea name="" id="regex-test" class="input text--large text--fixed" cols="30" rows="5" placeholder="Test string"></textarea>
     </div>
 </div>

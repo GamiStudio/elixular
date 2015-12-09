@@ -1,3 +1,11 @@
+var markAtRange = function(string, index, range) {
+  return string.substr(0, index) +
+          '<mark>' +
+          string.substr(index, range) +
+          '</mark>' +
+          string.substr(index + range);
+}
+
 class ResultsDisplay {
   constructor(options) {
     options || (options = {});
@@ -20,22 +28,41 @@ class ResultsDisplay {
   }
 
   update(value, matches) {
+    var colorRanges = this._getRanges(matches);
+    var markup = value;
+    colorRanges.forEach(function(range) {
+      markup = markAtRange(markup, range[0], range[1]);
+    });
+
+    this.$el.html(markup);
+  }
+
+  clean() {
+    this.$el.html('');
+  }
+
+  _getRanges(matches) {
     var colorRanges = [];
 
     matches.reverse().forEach(function(match) {
-      var fromIndex = match.index;
-      var toIndex = match.index + (match.value.length - 1);
-      var lastRange = (colorRanges.length - 1);
+      var fromIndex = match.range[0];
+      var toIndex = match.range[0] + (match.range[1] - 1);
+      var lastRangeIndex = (colorRanges.length - 1);
 
-      if (lastRange >= 0 && colorRanges[lastRange].from <= toIndex) {
-        return colorRanges[0].from = fromIndex;
+      if (lastRangeIndex >= 0 && colorRanges[lastRangeIndex][0] <= toIndex) {
+        colorRanges[lastRangeIndex][0] = fromIndex;
+        colorRanges[lastRangeIndex][1] += match.range[1];
+        return false;
       }
 
-      colorRanges.push({
-        from: match.range[0],
-        to: match.range[0] + match.range[1]
-      });
+      colorRanges.push(match.range);
     });
+
+    return colorRanges;
+  }
+
+  _colorRanges(value, ranges) {
+
   }
 }
 

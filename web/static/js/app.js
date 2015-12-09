@@ -13,6 +13,10 @@ function showErrors(result) {
 }
 
 var reevaluate = _.debounce(function reevaluate() {
+  if (!regexInput.value || !regexTest.value) {
+    return resultDisplay.clean();
+  }
+
   elixular.test(regexInput.value, regexTest.value)
     .then(showResults)
     .catch(showErrors);
