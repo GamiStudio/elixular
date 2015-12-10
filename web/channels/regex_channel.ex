@@ -13,15 +13,17 @@ defmodule Elixular.RegexChannel do
   def test_and_respond({:ok, regex}, text, socket) do
     matches = Regex.scan(regex, text)
 
-    {:reply, {:ok, %{matches: with_range(regex, text, matches)}}, socket}
+    {:reply,
+      {:ok,
+        %{matches: with_range(regex, text, matches)}
+      }, socket}
   end
 
   def test_and_respond({:error, error}, _text, socket) do
     {:reply,
-      {:error, %{
-          msg: elem(error, 0),
-          index: elem(error, 1)
-        }}, socket}
+      {:error,
+        %{msg: elem(error, 0), index: elem(error, 1) }
+      }, socket}
   end
 
   def with_range(regex, text, matches) do
