@@ -56,7 +56,7 @@ class InputElement {
 
     if (!selector) return _this;
 
-    _this.el = document.querySelectorAll(selector)[0];
+    _this.el = document.querySelector(selector);
 
     if (!_this.el) return _this;
 
