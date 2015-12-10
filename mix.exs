@@ -28,8 +28,8 @@ defmodule Elixular.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 0.16"},
-     {:phoenix_html, "~> 2.0"},
+    [{:phoenix, "~> 0.17"},
+     {:phoenix_html, "~> 2.2"},
      {:phoenix_live_reload, "~> 0.6", only: :dev},
      {:cowboy, "~> 1.0"}]
   end
