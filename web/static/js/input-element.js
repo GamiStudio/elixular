@@ -1,3 +1,5 @@
+import Utils from "./utils";
+
 // TODO: use array to track changes
 
 function checkKeyModifiers(e, ...modifiers) {
@@ -14,9 +16,13 @@ function checkKeyModifiers(e, ...modifiers) {
     return e[mod] || e[mod + 'Key'];
   });
 
-  return _.every(mappedMods, function(item) {
-    return item;
+  var every = true;
+
+  mappedMods.forEach(function(mod) {
+    if (!mod) every = false;
   });
+
+  return every;
 }
 
 function setCaretPosition(target, caretPosStart, caretPosEnd) {
@@ -44,7 +50,7 @@ class InputElement {
     var _this = this;
     _this.wrapBlocks = true;
 
-    _.extend(_this, options);
+    Utils.objExtend(_this, options);
 
     var selector = _this.el;
 

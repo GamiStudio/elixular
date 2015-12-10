@@ -1,3 +1,5 @@
+import Utils from "./utils";
+
 var markAtRange = function(string, index, range) {
   return string.substr(0, index) +
           '<mark>' +
@@ -12,7 +14,7 @@ class ColorMarker {
 
     var _this = this;
 
-    _.extend(_this, options);
+    Utils.objExtend(_this, options);
 
     var selector = _this.el;
 

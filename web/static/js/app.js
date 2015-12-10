@@ -1,18 +1,20 @@
 import Elixular from "./elixular";
 import InputElement from "./input-element";
 import ColorMarker from "./color-marker";
+import Utils from "./utils";
 
 var elixular = new Elixular();
 
-function showResults(result) {
+var showResults = function(result) {
+  console.log('show results');
   resultDisplay.update(regexTest.value, result.matches);
 }
 
-function showErrors(result) {
+var showErrors = function(result) {
   console.log(result);
 }
 
-var reevaluate = _.debounce(function reevaluate() {
+var reevaluate = Utils.debounce(function() {
   if (!regexInput.value || !regexTest.value) {
     return resultDisplay.clean();
   }
