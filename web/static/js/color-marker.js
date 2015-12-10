@@ -6,7 +6,7 @@ var markAtRange = function(string, index, range) {
           string.substr(index + range);
 }
 
-class ResultsDisplay {
+class ColorMarker {
   constructor(options) {
     options || (options = {});
 
@@ -66,4 +66,4 @@ class ResultsDisplay {
   }
 }
 
-export default ResultsDisplay;
+export default ColorMarker;

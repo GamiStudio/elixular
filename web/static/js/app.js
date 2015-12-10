@@ -1,6 +1,6 @@
 import Elixular from "./elixular";
 import InputElement from "./input-element";
-import ResultsDisplay from "./result-display";
+import ColorMarker from "./color-marker";
 
 var elixular = new Elixular();
 
@@ -40,6 +40,6 @@ var regexTest = new InputElement({
   onChange: reevaluate
 });
 
-var resultDisplay = new ResultsDisplay({
+var resultDisplay = new ColorMarker({
   el: '#regex-test-wrapper pre'
 });
