@@ -6,7 +6,7 @@ defmodule Elixular.RegexChannel do
   end
 
   def handle_in("start", payload, socket) do
-    Regex.compile(payload["pattern"]) |>
+    Regex.compile(payload["pattern"], payload["flags"]) |>
       test_and_respond(payload["text"], socket)
   end
 

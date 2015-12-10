@@ -6,12 +6,11 @@ import Utils from "./utils";
 var elixular = new Elixular();
 
 var showResults = function(result) {
-  console.log('show results');
   resultDisplay.update(regexTest.value, result.matches);
 }
 
 var showErrors = function(result) {
-  console.log(result);
+  console.error(result);
 }
 
 var reevaluate = Utils.debounce(function() {
@@ -19,7 +18,7 @@ var reevaluate = Utils.debounce(function() {
     return resultDisplay.clean();
   }
 
-  elixular.test(regexInput.value, regexTest.value)
+  elixular.test(regexInput.value, regexFlags.value, regexTest.value)
     .then(showResults)
     .catch(showErrors);
 }, 300);

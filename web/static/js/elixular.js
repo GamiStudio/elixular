@@ -11,9 +11,10 @@ class Elixular {
       .receive("error", resp => { console.log("Unabled to join", resp); });
   }
 
-  test(pattern, text) {
+  test(pattern, flags, text) {
+    flags = flags || '';
     return new Promise((resolve, reject) => {
-      this._channel.push("start", { pattern: pattern, text: text })
+      this._channel.push("start", { pattern: pattern, flags: flags, text: text })
         .receive("ok", resolve)
         .receive("error", reject);
     });
