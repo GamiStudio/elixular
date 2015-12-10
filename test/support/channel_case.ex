@@ -21,9 +21,6 @@ defmodule Elixular.ChannelCase do
       use Phoenix.ChannelTest
 
       alias Elixular.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
-
 
       # The default endpoint for testing
       @endpoint Elixular.Endpoint
@@ -31,10 +28,6 @@ defmodule Elixular.ChannelCase do
   end
 
   setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Elixular.Repo, [])
-    end
-
     :ok
   end
 end

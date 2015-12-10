@@ -21,8 +21,6 @@ defmodule Elixular.ConnCase do
       use Phoenix.ConnTest
 
       alias Elixular.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
 
       import Elixular.Router.Helpers
 
@@ -32,10 +30,6 @@ defmodule Elixular.ConnCase do
   end
 
   setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Elixular.Repo, [])
-    end
-
     :ok
   end
 end

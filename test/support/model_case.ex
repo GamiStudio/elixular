@@ -17,8 +17,6 @@ defmodule Elixular.ModelCase do
   using do
     quote do
       alias Elixular.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
       import Elixular.ModelCase
     end
   end

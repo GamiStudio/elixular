@@ -16,19 +16,9 @@ defmodule Elixular.Web do
   below.
   """
 
-  def model do
-    quote do
-      use Ecto.Model
-    end
-  end
-
   def controller do
     quote do
       use Phoenix.Controller
-
-      alias Elixular.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
 
       import Elixular.Router.Helpers
     end
@@ -57,11 +47,6 @@ defmodule Elixular.Web do
   def channel do
     quote do
       use Phoenix.Channel
-
-      alias Elixular.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
-
     end
   end
 

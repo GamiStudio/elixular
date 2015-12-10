@@ -8,11 +8,3 @@ config :elixular, Elixular.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
-
-# Configure your database
-config :elixular, Elixular.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "elixular_test",
-  pool: Ecto.Adapters.SQL.Sandbox
