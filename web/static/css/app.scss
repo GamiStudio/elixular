@@ -1,6 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
 
-$fixed-width: 'Inconsolata', Monaco, Consolas, 'Lucida Console', monospace;
+$fixed-width: 'Roboto Mono', Monaco, Consolas, 'Lucida Console', monospace;
 
 * {
   box-sizing: border-box;
@@ -61,8 +61,8 @@ pre {
   font-size: 14px;
 }
 
-.text--large {
-  font-size: 20px;
+.text--base {
+  font-size: 16px;
 }
 
 .text--center {
