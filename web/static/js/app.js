@@ -10,7 +10,7 @@ var showResults = function(result) {
 }
 
 var showErrors = function(result) {
-  console.error(result);
+  resultDisplay.clean();
 }
 
 var reevaluate = Utils.debounce(function() {
