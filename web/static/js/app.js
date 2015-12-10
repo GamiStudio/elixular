@@ -30,6 +30,7 @@ var regexInput = new InputElement({
 
 var regexFlags = new InputElement({
   el: '#regex-flags',
+  wrapBlocks: false,
   onChange: reevaluate
 });
 
