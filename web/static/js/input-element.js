@@ -56,32 +56,36 @@ class InputElement {
 
     if (!selector) return _this;
 
-    _this.$el = $(selector);
+    _this.el = document.querySelectorAll(selector)[0];
 
-    if (_this.$el.length === 0) return _this;
+    if (!_this.el) return _this;
 
-    _this.el = _this.$el.first()[0];
-
-    var inputCall = function(e) {
-      if (_this.resize === true) {
-        _this._triggerResize();
-      }
-
-      if (typeof _this.onChange == 'function') {
-        _this.onChange.call(_this, _this.value);
-      }
-    };
-
-    _this.$el.on('input', inputCall).each(inputCall);
-    _this.$el.on('keydown', function(e) {
-      _this._keyDownEvent.apply(_this, arguments);
-    });
+    _this._attachEvents();
 
     _this.initialize && _this.initialize();
   }
 
   get value() {
-    return this.$el && this.$el.val();
+    return this.el && this.el.value;
+  }
+
+  _attachEvents() {
+    var inputCall = (e) => {
+      if (this.resize === true) {
+        this._triggerResize();
+      }
+
+      if (typeof this.onChange == 'function') {
+        this.onChange.call(this, this.value);
+      }
+    };
+
+    this.el.addEventListener('input', inputCall);
+    this.el.addEventListener('keydown', (e) => {
+      this._keyDownEvent(e);
+    });
+
+    inputCall();
   }
 
   _triggerResize() {

@@ -20,11 +20,9 @@ class ColorMarker {
 
     if (!selector) return _this;
 
-    _this.$el = $(selector);
+    _this.el = document.querySelectorAll(selector)[0];
 
-    if (_this.$el.length === 0) return _this;
-
-    _this.el = _this.$el.first()[0];
+    if (!_this.el) return _this;
 
     _this.initialize && _this.initialize();
   }
@@ -36,11 +34,11 @@ class ColorMarker {
       markup = markAtRange(markup, range[0], range[1]);
     });
 
-    this.$el.html(markup);
+    this.el.innerHTML = markup;
   }
 
   clean() {
-    this.$el.html('');
+    this.el.innerHTML = '';
   }
 
   _getRanges(matches) {
