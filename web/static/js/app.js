@@ -21,7 +21,7 @@ var reevaluate = Utils.debounce(function() {
   elixular.test(regexInput.value, regexFlags.value, regexTest.value)
     .then(showResults)
     .catch(showErrors);
-}, 300);
+}, 200);
 
 var regexInput = new InputElement({
   el: '#regex-input',
@@ -38,7 +38,13 @@ var regexFlags = new InputElement({
 var regexTest = new InputElement({
   el: '#regex-test',
   wrapBlocks: false,
-  onChange: reevaluate
+  onChange: function(value) {
+    if (!value && resultDisplay) {
+      resultDisplay.clean();
+    }
+
+    reevaluate();
+  }
 });
 
 var resultDisplay = new ColorMarker({
