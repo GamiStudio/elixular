@@ -36,24 +36,3 @@ config :logger, level: :info
 # Where those two env variables return an absolute path to
 # the key and cert in disk or a relative path inside priv,
 # for example "priv/ssl/server.key".
-#
-# We also recommend setting `force_ssl`, ensuring no data is
-# ever sent via http, always redirecting to https:
-#
-#     config :elixular, Elixular.Endpoint,
-#       force_ssl: [hsts: true]
-#
-# Check `Plug.SSL` for all available options in `force_ssl`.
-
-# ## Using releases
-#
-# If you are doing OTP releases, you need to instruct Phoenix
-# to start the server for all endpoints:
-#
-#     config :phoenix, :serve_endpoints, true
-#
-# Alternatively, you can configure exactly which server to
-# start per endpoint:
-#
-#     config :elixular, Elixular.Endpoint, server: true
-#
