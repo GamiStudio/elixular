@@ -82,7 +82,7 @@ class InputElement {
 
     this.el.addEventListener('input', inputCall);
     this.el.addEventListener('keydown', (e) => {
-      this._keyDownEvent(e);
+      this._keyDownEvent(e) && inputCall();
     });
 
     inputCall();
@@ -135,18 +135,20 @@ class InputElement {
     if (this.resize === true) {
       this._triggerResize();
     }
+
+    return true;
   }
 
   _keyDownEvent(e) {
     if (this.wrapBlocks) {
       if (e.keyCode === 57 && checkKeyModifiers(e, 'shift')) {
         e.preventDefault();
-        this._wrapBlock('(', ')');
+        return this._wrapBlock('(', ')');
       }
 
       if (e.keyCode === 219 && checkKeyModifiers(e)) {
         e.preventDefault();
-        this._wrapBlock('[', ']');
+        return this._wrapBlock('[', ']');
       }
     }
   }
