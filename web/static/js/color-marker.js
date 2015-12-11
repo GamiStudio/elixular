@@ -54,9 +54,6 @@ class ColorMarker {
       markup = value;
     }
 
-    console.log('updating');
-    console.log(markup);
-
     this.el.innerHTML = markup;
   }
 
