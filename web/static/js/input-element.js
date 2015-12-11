@@ -56,32 +56,36 @@ class InputElement {
 
     if (!selector) return _this;
 
-    _this.$el = $(selector);
+    _this.el = document.querySelector(selector);
 
-    if (_this.$el.length === 0) return _this;
+    if (!_this.el) return _this;
 
-    _this.el = _this.$el.first()[0];
-
-    var inputCall = function(e) {
-      if (_this.resize === true) {
-        _this._triggerResize();
-      }
-
-      if (typeof _this.onChange == 'function') {
-        _this.onChange.call(_this, _this.value);
-      }
-    };
-
-    _this.$el.on('input', inputCall).each(inputCall);
-    _this.$el.on('keydown', function(e) {
-      _this._keyDownEvent.apply(_this, arguments);
-    });
+    _this._attachEvents();
 
     _this.initialize && _this.initialize();
   }
 
   get value() {
-    return this.$el && this.$el.val();
+    return this.el && this.el.value;
+  }
+
+  _attachEvents() {
+    var inputCall = (e) => {
+      if (this.resize === true) {
+        this._triggerResize();
+      }
+
+      if (typeof this.onChange == 'function') {
+        this.onChange.call(this, this.value);
+      }
+    };
+
+    this.el.addEventListener('input', inputCall);
+    this.el.addEventListener('keydown', (e) => {
+      this._keyDownEvent(e) && inputCall();
+    });
+
+    inputCall();
   }
 
   _triggerResize() {
@@ -131,18 +135,20 @@ class InputElement {
     if (this.resize === true) {
       this._triggerResize();
     }
+
+    return true;
   }
 
   _keyDownEvent(e) {
     if (this.wrapBlocks) {
       if (e.keyCode === 57 && checkKeyModifiers(e, 'shift')) {
         e.preventDefault();
-        this._wrapBlock('(', ')');
+        return this._wrapBlock('(', ')');
       }
 
       if (e.keyCode === 219 && checkKeyModifiers(e)) {
         e.preventDefault();
-        this._wrapBlock('[', ']');
+        return this._wrapBlock('[', ']');
       }
     }
   }

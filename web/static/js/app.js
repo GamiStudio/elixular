@@ -32,7 +32,10 @@ var regexInput = new InputElement({
 var regexFlags = new InputElement({
   el: '#regex-flags',
   wrapBlocks: false,
-  onChange: reevaluate
+  onChange: function(value) {
+    coloredFlags && coloredFlags.update(value);
+    reevaluate();
+  }
 });
 
 var regexTest = new InputElement({
@@ -49,4 +52,10 @@ var regexTest = new InputElement({
 
 var resultDisplay = new ColorMarker({
   el: '#regex-test-wrapper pre'
+});
+
+var coloredFlags = new ColorMarker({
+  el: '.regex__flags pre',
+  kind: 'regex',
+  regex: /([^uisxmfr])/g,
 });

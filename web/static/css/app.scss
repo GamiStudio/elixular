@@ -1,6 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
 
-$fixed-width: 'Inconsolata', Monaco, Consolas, 'Lucida Console', monospace;
+$fixed-width: 'Roboto Mono', Monaco, Consolas, 'Lucida Console', monospace;
 
 * {
   box-sizing: border-box;
@@ -61,8 +61,8 @@ pre {
   font-size: 14px;
 }
 
-.text--large {
-  font-size: 20px;
+.text--base {
+  font-size: 16px;
 }
 
 .text--center {
@@ -89,15 +89,22 @@ pre {
 
 .regex__input {
   flex: 1 0 auto;
+  background-color: #f5f5f5;
+}
+
+.regex__flags {
+  position: relative;
+  background-color: #f5f5f5;
 }
 
 input.input, textarea.input {
+  position: relative;
   outline: none;
   padding: 5px 10px;
   width: 100%;
   border: none;
+  background-color: transparent;
   -webkit-appearance: none;
-  background-color: #f5f5f5;
   resize: none;
 }
 
@@ -112,7 +119,7 @@ input.input, textarea.input {
   background-color: transparent;
 }
 
-.regex-results {
+.colored-input {
   position: absolute;
   top: 0;
   left: 0;
@@ -125,6 +132,12 @@ input.input, textarea.input {
   mark {
     color: transparent;
     background-color: #c6e3ff;
+  }
+}
+
+.colored-input--error {
+  mark {
+    background-color: #fc5d51;
   }
 }
 

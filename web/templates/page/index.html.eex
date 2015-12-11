@@ -1,16 +1,17 @@
-<div class="box mb+">
-    <div class="regex text--large">
-        <div class="regex__slash">/</div>
+<section class="box mb+">
+    <section class="regex text--base">
+        <div class="regex__slash text--fixed">~r/</div>
         <div class="regex__input">
-            <textarea id="regex-input" class="input text--large text--fixed" rows="1" placeholder="Regular expression"></textarea>
+            <textarea id="regex-input" class="input text--base text--fixed" rows="1" placeholder="Regular expression" tabindex="1"></textarea>
         </div>
-        <div class="regex__slash">/</div>
+        <div class="regex__slash text--fixed">/</div>
         <div class="regex__flags">
-            <input id="regex-flags" class="input text--large text--fixed" type="text" size="7" placeholder="uismxfr">
+            <pre class="colored-input colored-input--error text--base"></pre>
+            <input id="regex-flags" class="input text--base text--fixed" type="text" size="7" placeholder="uismxfr" tabindex="3">
         </div>
-    </div>
-    <div id="regex-test-wrapper">
-        <pre class="regex-results text--large"></pre>
-        <textarea name="" id="regex-test" class="input text--large text--fixed" cols="30" rows="5" placeholder="Test string"></textarea>
-    </div>
-</div>
+    </section>
+    <section id="regex-test-wrapper">
+        <pre class="colored-input text--base"></pre>
+        <textarea name="" id="regex-test" class="input text--base text--fixed" cols="30" rows="5" placeholder="Test string" tabindex="2"></textarea>
+    </section>
+</section>
