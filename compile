@@ -1,0 +1,2 @@
+brunch build --production
+mix do app.start, phoenix.digest
