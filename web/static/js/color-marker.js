@@ -14,6 +14,8 @@ class ColorMarker {
 
     var _this = this;
 
+    _this.kind = 'range';
+
     Utils.objExtend(_this, options);
 
     var selector = _this.el;
@@ -27,12 +29,33 @@ class ColorMarker {
     _this.initialize && _this.initialize();
   }
 
-  update(value, matches) {
-    var colorRanges = this._getRanges(matches);
+  _updateRanges(value, matches) {
     var markup = value;
+    var colorRanges = this._getRanges(matches);
     colorRanges.forEach(function(range) {
       markup = markAtRange(markup, range[0], range[1]);
     });
+
+    return markup;
+  }
+
+  _updateRegex(value) {
+    return value.replace(this.regex, '<mark>$1</mark>');
+  }
+
+  update(value, matches) {
+    var markup;
+
+    if (this.kind === 'range' && matches) {
+      markup = this._updateRanges(value, matches);
+    } else if (this.kind === 'regex') {
+      markup = this._updateRegex(value);
+    } else {
+      markup = value;
+    }
+
+    console.log('updating');
+    console.log(markup);
 
     this.el.innerHTML = markup;
   }
