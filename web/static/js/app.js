@@ -57,5 +57,5 @@ var resultDisplay = new ColorMarker({
 var coloredFlags = new ColorMarker({
   el: '.regex__flags pre',
   kind: 'regex',
-  regex: /([^uisxmfr])/g,
+  regex: /([^uismxfU])/g,
 });

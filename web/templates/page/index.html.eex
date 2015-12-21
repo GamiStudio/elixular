@@ -7,7 +7,7 @@
         <div class="regex__slash text--fixed">/</div>
         <div class="regex__flags">
             <pre class="colored-input colored-input--error text--base"></pre>
-            <input id="regex-flags" class="input text--base text--fixed" type="text" size="7" placeholder="uismxfr" tabindex="3">
+            <input id="regex-flags" class="input text--base text--fixed" type="text" size="7" placeholder="uismxfU" tabindex="3">
         </div>
     </section>
     <section id="regex-test-wrapper">
