@@ -12,11 +12,11 @@ function checkKeyModifiers(e, ...modifiers) {
     return !(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
   }
 
-  var mappedMods = modifiers.map(function(mod) {
+  let mappedMods = modifiers.map(function(mod) {
     return e[mod] || e[mod + 'Key'];
   });
 
-  var every = true;
+  let every = true;
 
   mappedMods.forEach(function(mod) {
     if (!mod) every = false;
@@ -43,26 +43,28 @@ function setCaretPosition(target, caretPosStart, caretPosEnd) {
   }
 }
 
+// Calculate new String after wrapping block insertion
+function insertAt(string, char, index) {
+  return [string.slice(0, index), char, string.slice(index)].join('');
+}
+
 class InputElement {
-  constructor(options) {
-    options || (options = {});
+  constructor(options = {}) {
+    this.wrapBlocks = true;
 
-    var _this = this;
-    _this.wrapBlocks = true;
+    Utils.objExtend(this, options);
 
-    Utils.objExtend(_this, options);
+    let selector = this.el;
 
-    var selector = _this.el;
+    if (!selector) return this;
 
-    if (!selector) return _this;
+    this.el = document.querySelector(selector);
 
-    _this.el = document.querySelector(selector);
+    if (!this.el) return this;
 
-    if (!_this.el) return _this;
+    this._attachEvents();
 
-    _this._attachEvents();
-
-    _this.initialize && _this.initialize();
+    this.initialize && this.initialize();
   }
 
   get value() {
@@ -70,7 +72,7 @@ class InputElement {
   }
 
   _attachEvents() {
-    var inputCall = (e) => {
+    let inputCall = (e) => {
       if (this.resize === true) {
         this._triggerResize();
       }
@@ -89,10 +91,10 @@ class InputElement {
   }
 
   _triggerResize() {
-    var element = this.el;
-    var empty = false;
-    var offset;
-    var type = element.nodeName.toLowerCase();
+    let element = this.el;
+    let empty = false;
+    let offset;
+    let type = element.nodeName.toLowerCase();
 
     if (!element.value && element.placeholder) {
       empty = true;
@@ -106,7 +108,7 @@ class InputElement {
 
       element.scrollLeft = 1e+10;
 
-      var width = Math.max(element.scrollLeft + offset, element.scrollWidth - element.clientWidth);
+      let width = Math.max(element.scrollLeft + offset, element.scrollWidth - element.clientWidth);
 
       element.style.width = width + "px";
     }
@@ -120,14 +122,10 @@ class InputElement {
     }
   }
   _wrapBlock(startChar, endChar) {
-    var insertAt = function(string, char, index) {
-      return [string.slice(0, index), char, string.slice(index)].join('');
-    };
+    let target = this.el;
 
-    var target = this.el;
-
-    var selectionStart = target.selectionStart;
-    var selectionEnd = target.selectionEnd + 1;
+    const selectionStart = target.selectionStart;
+    const selectionEnd = target.selectionEnd + 1;
     target.value = insertAt(target.value, startChar, selectionStart);
     target.value = insertAt(target.value, endChar, selectionEnd);
     setCaretPosition(target, selectionStart + 1, selectionEnd);

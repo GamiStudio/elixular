@@ -3,17 +3,17 @@ import InputElement from "./input-element";
 import ColorMarker from "./color-marker";
 import Utils from "./utils";
 
-var elixular = new Elixular();
+let elixular = new Elixular();
 
-var showResults = function(result) {
+function showResults(result) {
   resultDisplay.update(regexTest.value, result.matches);
 }
 
-var showErrors = function(result) {
+function showErrors(result) {
   resultDisplay.clean();
 }
 
-var reevaluate = Utils.debounce(function() {
+let reevaluate = Utils.debounce(function() {
   if (!regexInput.value || !regexTest.value) {
     return resultDisplay.clean();
   }
@@ -23,22 +23,25 @@ var reevaluate = Utils.debounce(function() {
     .catch(showErrors);
 }, 200);
 
-var regexInput = new InputElement({
+let regexInput = new InputElement({
   el: '#regex-input',
   resize: true,
   onChange: reevaluate
 });
 
-var regexFlags = new InputElement({
+let regexFlags = new InputElement({
   el: '#regex-flags',
   wrapBlocks: false,
   onChange: function(value) {
-    coloredFlags && coloredFlags.update(value);
+    if (coloredFlags) {
+      coloredFlags.update(value);
+    }
+
     reevaluate();
   }
 });
 
-var regexTest = new InputElement({
+let regexTest = new InputElement({
   el: '#regex-test',
   wrapBlocks: false,
   onChange: function(value) {
@@ -50,11 +53,11 @@ var regexTest = new InputElement({
   }
 });
 
-var resultDisplay = new ColorMarker({
+let resultDisplay = new ColorMarker({
   el: '#regex-test-wrapper pre'
 });
 
-var coloredFlags = new ColorMarker({
+let coloredFlags = new ColorMarker({
   el: '.regex__flags pre',
   kind: 'regex',
   regex: /([^uismxfU])/g,

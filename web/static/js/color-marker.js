@@ -1,37 +1,33 @@
 import Utils from "./utils";
 
-var markAtRange = function(string, index, range) {
-  return string.substr(0, index) +
-          '<mark>' +
-          string.substr(index, range) +
-          '</mark>' +
-          string.substr(index + range);
+function markAtRange(string, index, range) {
+  const beforeMark = string.substr(0, index);
+  const markedText = string.substr(index, range);
+  const afterMark = string.substr(index + range);
+
+  return `${beforeMark}<mark>${markedText}</mark>${afterMark}`;
 }
 
 class ColorMarker {
-  constructor(options) {
-    options || (options = {});
+  constructor(options = {}) {
+    this.kind = 'range';
 
-    var _this = this;
+    Utils.objExtend(this, options);
 
-    _this.kind = 'range';
+    let selector = this.el;
 
-    Utils.objExtend(_this, options);
+    if (!selector) return this;
 
-    var selector = _this.el;
+    this.el = document.querySelector(selector);
 
-    if (!selector) return _this;
+    if (!this.el) return this;
 
-    _this.el = document.querySelector(selector);
-
-    if (!_this.el) return _this;
-
-    _this.initialize && _this.initialize();
+    this.initialize && this.initialize();
   }
 
   _updateRanges(value, matches) {
-    var markup = value;
-    var colorRanges = this._getRanges(matches);
+    let markup = value;
+    let colorRanges = this._getRanges(matches);
     colorRanges.forEach(function(range) {
       markup = markAtRange(markup, range[0], range[1]);
     });
@@ -44,7 +40,7 @@ class ColorMarker {
   }
 
   update(value, matches) {
-    var markup;
+    let markup;
 
     if (this.kind === 'range' && matches) {
       markup = this._updateRanges(value, matches);
@@ -62,12 +58,13 @@ class ColorMarker {
   }
 
   _getRanges(matches) {
-    var colorRanges = [];
+    let colorRanges = [];
 
-    matches.reverse().forEach(function(match) {
-      var fromIndex = match.range[0];
-      var toIndex = match.range[0] + (match.range[1] - 1);
-      var lastRangeIndex = (colorRanges.length - 1);
+    matches.reverse().forEach(match => {
+      const fromIndex = match.range[0];
+      const toIndex = match.range[0] + (match.range[1] - 1);
+
+      let lastRangeIndex = (colorRanges.length - 1);
 
       if (lastRangeIndex >= 0 && colorRanges[lastRangeIndex][0] <= toIndex) {
         colorRanges[lastRangeIndex][0] = fromIndex;
@@ -79,10 +76,6 @@ class ColorMarker {
     });
 
     return colorRanges;
-  }
-
-  _colorRanges(value, ranges) {
-
   }
 }
 
